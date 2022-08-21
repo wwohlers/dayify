@@ -48,8 +48,8 @@ export function suggest(input: string, direction: SearchDirection = 'both'): Dat
   }
   if (trimmed.includes('at')) {
     const [dateInput, timeInput] = trimmed.split('at');
-    const dates = suggestDate(dateInput, direction);
-    const times = suggestTime(timeInput, direction);
+    const dates = suggestDate(dateInput);
+    const times = suggestTime(timeInput);
     return dates
       .map((d) => {
         return times.map((t) => {
@@ -59,7 +59,12 @@ export function suggest(input: string, direction: SearchDirection = 'both'): Dat
           });
         });
       })
-      .flat(1);
+      .flat(1)
+      .filter((dt) => {
+        if (direction === "future") return dt > DateTime.now();
+        else if (direction === "past") return dt < DateTime.now();
+        return true;
+      })
   } else {
     const dates = suggestDate(trimmed, direction);
     if (dates.length) return dates;
