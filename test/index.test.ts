@@ -14,7 +14,9 @@ import { fromHHMM, fromHour } from '../src/timeSuggestions';
 test('suggestDate', () => {
   expect(suggestDate('day after tomorrow')[0]).toEqual(fromSimpleRelative('day after tomorrow')[0].plus({ hour: 9 }));
   expect(suggestDate('tue')[0]).toEqual(fromDayOfWeek('tue')[0].plus({ hour: 9 }));
-  expect(suggestDate(' 2 TUESDAYS ago')[0]).toEqual(fromNumericRelativeWeek('2', 'tuesday', 'ago')[0].plus({ hour: 9 }));
+  expect(suggestDate(' 2 TUESDAYS ago')[0]).toEqual(
+    fromNumericRelativeWeek('2', 'tuesday', 'ago')[0].plus({ hour: 9 }),
+  );
   expect(suggestDate('1 Sunday')[0]).toEqual(fromNumericRelativeWeek('1', 'sunday', undefined)[0].plus({ hour: 9 }));
   expect(suggestDate(' 09/24/01 ')[0]).toEqual(fromSlashes('09', '24', '01')[0].plus({ hour: 9 }));
   expect(suggestDate('4-12-2010')[0]).toEqual(fromSlashes('4', '12', '2010')[0].plus({ hour: 9 }));
@@ -59,4 +61,5 @@ test('suggest - at', () => {
   expect(suggest('4 sep at quarter to 17  ')[0]).toEqual(
     DateTime.now().set({ month: 9, day: 4, hour: 16, minute: 45 }).startOf('minute'),
   );
+  expect(suggest('saturday at 5')[0]).toEqual(DateTime.now().set({ weekday: 6, hour: 5, minute: 0 }).startOf('minute'));
 });
