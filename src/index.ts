@@ -46,8 +46,8 @@ export function suggest(input: string, direction: SearchDirection = 'both'): Dat
   } else if (direction !== 'future' && trimmed.endsWith(' ago')) {
     return fromUnits(trimmed.substring(0, input.length - 3).trim(), true);
   }
-  if (trimmed.includes('at')) {
-    const [dateInput, timeInput] = trimmed.split('at');
+  if (trimmed.includes(' at ')) {
+    const [dateInput, timeInput] = trimmed.split(' at ');
     const dates = suggestDate(dateInput);
     const times = suggestTime(timeInput);
     return dates
