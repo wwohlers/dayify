@@ -30,7 +30,7 @@ export const fromDayOfWeek = (dayOfWeek: string) => {
   const weekday = dayOfWeekToNum(dayOfWeek);
   const thisWeek = DateTime.now().startOf('week').set({ weekday });
   const prevWeek = thisWeek.minus({ week: 1 });
-  const nextWeek = thisWeek.plus({ week: 2 });
+  const nextWeek = thisWeek.plus({ week: 1 });
   return [thisWeek, prevWeek, nextWeek];
 };
 
